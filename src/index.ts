@@ -24,7 +24,7 @@ async function readMp3Metadata(filePath: string) {
   }
 }
 
-const folderPath = '/others/Muzyka/Moje';
-const fileName = 'f86965512.mp3';
+const folderPath = '/others/Muzyka/Moje/Raw';
+const fileName = 'f18080688.mp3';
 
 readMp3Metadata(join(folderPath, fileName));

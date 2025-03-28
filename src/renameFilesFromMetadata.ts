@@ -23,34 +23,37 @@ const renameFilesFromMetadata = async (folderPath: string) => {
     .filter((fileName) => fileName.startsWith('f'));
   console.log(`Found ${notRenamedFiles.length} files in ${folderPath}`);
 
-  const filesToRename = notRenamedFiles.slice(0, 100);
+  const filesToRename = notRenamedFiles.slice(0, 5000);
 
+  let i = 0;
   for (const fileName of filesToRename) {
-    const filePath = `${folderPath}/${fileName}`;
-    console.log(`Reading metadata for ${filePath}`);
+    const filePath = join(folderPath, fileName);
+    console.log(`${i} Reading metadata for ${filePath}`);
     try {
       const { artists, title } = await readMp3Metadata(filePath);
       if (!title) {
         console.log(`No title found for ${filePath}`);
         continue;
       }
-      const newTitle = artists.join(', ') + ' - ' + title;
-      let newPath = join(folderPath, newTitle + '.mp3');
+      // replace slashes with - in title
+      const newTitle = (artists.join(', ') + ' - ' + title).replace(/\//g, '-');
+      let newPath = join(renamedFolderPath, newTitle + '.mp3');
       console.log(`Renaming ${filePath} to ${newPath}`);
       if (fs.existsSync(newPath)) {
         console.log(`File ${newPath} already exists`);
-        newPath = join(folderPath, newTitle + ` (1).mp3`);
+        newPath = join(renamedFolderPath, newTitle + ` (1).mp3`);
       }
 
       if (!fs.existsSync(newPath)) {
-        await fs.promises.rename(filePath, `${folderPath}/${newTitle}.mp3`);
+        await fs.promises.rename(filePath, newPath);
       } else {
         console.log(`File ${newPath} already exists - skipping`);
       }
     } catch (error) {
       console.error(`Error reading metadata for ${fileName}:`, error);
     }
+    i++;
   }
 };
 
-renameFilesFromMetadata(mainFolderPath);
+renameFilesFromMetadata(rawFolderPath);
