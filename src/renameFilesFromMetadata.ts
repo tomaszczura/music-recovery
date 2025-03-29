@@ -1,20 +1,21 @@
-import * as mm from 'music-metadata';
+import { parseFile } from 'music-metadata';
 import fs from 'fs';
 import { join } from 'path';
+import { rawFolderPath, renamedFolderPath } from './constants';
+import { log } from 'console';
 
-const mainFolderPath = '/others/Muzyka/Moje';
-const rawFolderPath = join(mainFolderPath, 'Raw');
-const renamedFolderPath = join(mainFolderPath, 'Renamed');
-
-async function readMp3Metadata(filePath: string) {
+export const readMp3Metadata = async (filePath: string) => {
   // Read metadata
-  const metadata = await mm.parseFile(filePath);
+  const metadata = await parseFile(filePath, {
+    duration: true,
+  });
 
   return {
     title: metadata.common.title,
     artists: metadata.common.artists || [metadata.common.artist] || ['Unknown'],
+    duration: metadata.format.duration,
   };
-}
+};
 
 const renameFilesFromMetadata = async (folderPath: string) => {
   const folderFiles = await fs.promises.readdir(folderPath);
@@ -56,4 +57,4 @@ const renameFilesFromMetadata = async (folderPath: string) => {
   }
 };
 
-renameFilesFromMetadata(rawFolderPath);
+// renameFilesFromMetadata(rawFolderPath);

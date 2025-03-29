@@ -1,6 +1,7 @@
 import * as mm from 'music-metadata';
 import fs from 'fs';
 import { join } from 'path';
+import { rawFolderPath } from './constants';
 
 async function readMp3Metadata(filePath: string) {
   try {
@@ -24,7 +25,6 @@ async function readMp3Metadata(filePath: string) {
   }
 }
 
-const folderPath = '/others/Muzyka/Moje/Raw';
 const fileName = 'f18080688.mp3';
 
-readMp3Metadata(join(folderPath, fileName));
+readMp3Metadata(join(rawFolderPath, fileName));

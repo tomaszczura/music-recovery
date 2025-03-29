@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "renameFilesFromMetadata": "ts-node src/renameFilesFromMetadata.ts"
+    "renameFilesFromMetadata": "ts-node src/renameFilesFromMetadata.ts",
+    "findFinalFilesFromRenamed": "ts-node src/findFinalFilesFromRenamed.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,8 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "music-metadata": "^11.0.2"
+    "knex": "^3.1.0",
+    "music-metadata": "^11.0.2",
+    "sqlite3": "^5.1.7"
   }
 }
