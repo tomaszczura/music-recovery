@@ -1,12 +1,6 @@
 import { database } from '../db';
 import fs from 'fs';
-
-interface MediaFile {
-  id: number;
-  path: string;
-  duration: number;
-  size: number;
-}
+import { MediaFile } from '../dbTypes';
 
 export const findMediaFileBySize = async ({
   size,
@@ -22,6 +16,11 @@ export const findMediaFileBySize = async ({
   }
 };
 
+export const listAllFiles = async () => {
+  const result = await database<MediaFile>('media_file').select('*');
+  return result;
+};
+
 // Helper function to get file size in bytes
 export const getFileSize = (filePath: string): number | null => {
   try {
@@ -30,17 +29,5 @@ export const getFileSize = (filePath: string): number | null => {
   } catch (error) {
     console.error('Error getting file size:', error);
     return null;
-  }
-};
-
-export const listAllTables = async (): Promise<string[]> => {
-  try {
-    const result = await database.raw(
-      "SELECT name FROM sqlite_master WHERE type='table'"
-    );
-    return result.map((row: any) => row.name);
-  } catch (error) {
-    console.error('Error listing tables:', error);
-    throw error;
   }
 };

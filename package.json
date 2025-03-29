@@ -7,7 +7,9 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "renameFilesFromMetadata": "ts-node src/renameFilesFromMetadata.ts",
-    "findFinalFilesFromRenamed": "ts-node src/findFinalFilesFromRenamed.ts"
+    "findFinalFilesFromRenamed": "ts-node src/findFinalFilesFromRenamed.ts",
+    "renameRawToNotTagged": "ts-node src/renameRawToNotTagged.ts",
+    "listMissingFiles": "ts-node src/listMissingFiles.ts"
   },
   "keywords": [],
   "author": "",

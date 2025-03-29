@@ -1,4 +1,4 @@
-interface MediaFile {
+export interface MediaFile {
   path: string;
   title: string;
   artist: string;

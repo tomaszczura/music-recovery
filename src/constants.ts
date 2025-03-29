@@ -9,4 +9,7 @@ export const mainFolderPath = path.join(
 );
 export const rawFolderPath = path.join(mainFolderPath, 'Raw');
 export const renamedFolderPath = path.join(mainFolderPath, 'Renamed');
+export const finalFolderPath = path.join(mainFolderPath, 'Final');
+export const notTaggedFolderPath = path.join(mainFolderPath, 'NotTagged');
+
 export const dbPath = path.join(mainFolderPath, 'navidrome.db');
